@@ -264,7 +264,7 @@ section{position:relative;padding:120px 0;}
 .gallery-scroll::-webkit-scrollbar{height:6px;}
 .gallery-scroll::-webkit-scrollbar-thumb{background:rgba(21,48,42,.2);border-radius:4px;}
 .gallery-item{scroll-snap-align:start;flex:0 0 300px;aspect-ratio:4/5;border-radius:18px;overflow:hidden;position:relative;}
-.gallery-item svg{position:absolute;inset:0;}
+.gallery-item img,.gallery-item svg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
 .gallery-item .gcap{position:absolute;left:16px;bottom:16px;color:#fff;font-size:13px;font-weight:600;background:rgba(14,33,29,.55);backdrop-filter:blur(6px);padding:8px 13px;border-radius:10px;}
 
 /* ===== Cases / depoimentos em vídeo ===== */
@@ -585,10 +585,10 @@ footer{background:var(--ink);color:var(--muted);padding:64px 0 28px;}
   </div>
   <div class="container">
     <div class="gallery-scroll" tabindex="0" aria-label="Galeria de imagens do consultório, role horizontalmente">
-      <div class="gallery-item"><svg viewBox="0 0 300 375" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Sala de atendimento"><rect width="300" height="375" fill="#1C3D35"/><circle cx="150" cy="160" r="60" fill="#FF8C66" opacity=".8"/></svg><span class="gcap">Sala de avaliação</span></div>
-      <div class="gallery-item"><svg viewBox="0 0 300 375" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Recepção acolhedora"><rect width="300" height="375" fill="#8FE3C7"/><circle cx="150" cy="180" r="60" fill="#15302A" opacity=".85"/></svg><span class="gcap">Recepção</span></div>
-      <div class="gallery-item"><svg viewBox="0 0 300 375" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Materiais de avaliação"><rect width="300" height="375" fill="#0E211D"/><circle cx="150" cy="170" r="60" fill="#8FE3C7" opacity=".7"/></svg><span class="gcap">Materiais utilizados</span></div>
-      <div class="gallery-item"><svg viewBox="0 0 300 375" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Espaço infantil"><rect width="300" height="375" fill="#FF8C66"/><circle cx="150" cy="170" r="60" fill="#0E211D" opacity=".75"/></svg><span class="gcap">Espaço infantil</span></div>
+      <div class="gallery-item"><img src="sala-de-avaliacao.jpg" alt="Sala de atendimento e avaliação neuropsicopedagógica" loading="lazy" width="300" height="375"><span class="gcap">Sala de avaliação</span></div>
+      <div class="gallery-item"><img src="recepcao.jpg" alt="Recepção acolhedora do consultório" loading="lazy" width="300" height="375"><span class="gcap">Recepção</span></div>
+      <div class="gallery-item"><img src="materiais-usados.jpg" alt="Materiais utilizados nas avaliações" loading="lazy" width="300" height="375"><span class="gcap">Materiais utilizados</span></div>
+      <div class="gallery-item"><img src="espaco-infantil.jpg" alt="Espaço infantil preparado para atendimento" loading="lazy" width="300" height="375"><span class="gcap">Espaço infantil</span></div>
     </div>
   </div>
 </section>
