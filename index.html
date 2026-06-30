@@ -259,14 +259,23 @@ section{position:relative;padding:120px 0;}
 .stack-card h3{font-size:19px;color:#fff;margin-bottom:8px;}
 .stack-card p{font-size:14.5px;color:var(--muted);max-width:440px;}
 
-/* ===== Galeria — scroll horizontal ===== */
+/* ===== Galeria — carrossel ===== */
 .galeria{background:var(--cream);}
-.gallery-scroll{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:14px;-webkit-overflow-scrolling:touch;}
-.gallery-scroll::-webkit-scrollbar{height:6px;}
-.gallery-scroll::-webkit-scrollbar-thumb{background:rgba(21,48,42,.2);border-radius:4px;}
-.gallery-item{scroll-snap-align:start;flex:0 0 300px;aspect-ratio:4/5;border-radius:18px;overflow:hidden;position:relative;}
-.gallery-item img,.gallery-item svg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
-.gallery-item .gcap{position:absolute;left:16px;bottom:16px;color:#fff;font-size:13px;font-weight:600;background:rgba(14,33,29,.55);backdrop-filter:blur(6px);padding:8px 13px;border-radius:10px;}
+.gallery-carousel{position:relative;max-width:920px;margin:0 auto;}
+.gallery-viewport{overflow:hidden;border-radius:20px;background:linear-gradient(145deg,var(--ink),var(--ink-3));box-shadow:0 24px 60px rgba(14,33,29,.14);}
+.gallery-track{display:flex;transition:transform .55s var(--ease);}
+.gallery-slide{flex:0 0 100%;margin:0;position:relative;aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;background:var(--ink-2);}
+.gallery-slide img{width:100%;height:100%;object-fit:contain;display:block;}
+.gallery-slide .gcap{position:absolute;left:18px;bottom:18px;color:#fff;font-size:13px;font-weight:600;background:rgba(14,33,29,.62);backdrop-filter:blur(8px);padding:8px 14px;border-radius:10px;z-index:2;}
+.gallery-btn{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.22);background:rgba(14,33,29,.72);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .25s var(--ease),transform .25s var(--ease);z-index:3;backdrop-filter:blur(8px);}
+.gallery-btn:hover{background:rgba(14,33,29,.92);transform:translateY(-50%) scale(1.06);}
+.gallery-btn svg{width:18px;height:18px;fill:currentColor;}
+.gallery-prev{left:-22px;}
+.gallery-next{right:-22px;}
+.gallery-dots{display:flex;justify-content:center;gap:10px;margin-top:20px;}
+.gallery-dot{width:9px;height:9px;border-radius:50%;border:none;padding:0;background:rgba(21,48,42,.22);cursor:pointer;transition:transform .25s var(--ease),background .25s var(--ease);}
+.gallery-dot.active{background:var(--coral);transform:scale(1.15);}
+.gallery-dot:hover{background:var(--coral-dim);}
 
 /* ===== Cases / depoimentos em vídeo ===== */
 .cases{background:#fff;}
@@ -380,6 +389,8 @@ footer{background:var(--ink);color:var(--muted);padding:64px 0 28px;}
   .cases-grid{grid-template-columns:1fr;max-width:420px;margin:0 auto;}
   .footer-grid{grid-template-columns:1fr 1fr;}
   .contato-grid{grid-template-columns:1fr;}
+  .gallery-prev{left:8px;}
+  .gallery-next{right:8px;}
 }
 @media(max-width:680px){
   .nav-links{position:fixed;top:0;right:0;height:100vh;width:80%;background:var(--ink);flex-direction:column;justify-content:center;align-items:center;gap:26px;transform:translateX(100%);transition:transform .45s var(--ease);}
@@ -572,11 +583,30 @@ footer{background:var(--ink);color:var(--muted);padding:64px 0 28px;}
     </div>
   </div>
   <div class="container">
-    <div class="gallery-scroll" tabindex="0" aria-label="Galeria de imagens do consultório, role horizontalmente">
-      <div class="gallery-item"><img src="sala-de-avaliacao.jpg" alt="Sala de atendimento e avaliação neuropsicopedagógica" loading="lazy" width="300" height="375"><span class="gcap">Sala de avaliação</span></div>
-      <div class="gallery-item"><img src="recepcao.jpg" alt="Recepção acolhedora do consultório" loading="lazy" width="300" height="375"><span class="gcap">Recepção</span></div>
-      <div class="gallery-item"><img src="materiais-usados.jpg" alt="Materiais utilizados nas avaliações" loading="lazy" width="300" height="375"><span class="gcap">Materiais utilizados</span></div>
-      <div class="gallery-item"><img src="espaco-infantil.jpg" alt="Espaço infantil preparado para atendimento" loading="lazy" width="300" height="375"><span class="gcap">Espaço infantil</span></div>
+    <div class="gallery-carousel" id="galleryCarousel">
+      <div class="gallery-viewport">
+        <div class="gallery-track" id="galleryTrack">
+          <figure class="gallery-slide">
+            <img src="sala-de-avaliacao.jpg" alt="Sala de atendimento e avaliação neuropsicopedagógica" loading="lazy">
+            <figcaption class="gcap">Sala de avaliação</figcaption>
+          </figure>
+          <figure class="gallery-slide">
+            <img src="recepcao.jpg" alt="Recepção acolhedora do consultório" loading="lazy">
+            <figcaption class="gcap">Recepção</figcaption>
+          </figure>
+          <figure class="gallery-slide">
+            <img src="materiais-usados.jpg" alt="Materiais utilizados nas avaliações" loading="lazy">
+            <figcaption class="gcap">Materiais utilizados</figcaption>
+          </figure>
+          <figure class="gallery-slide">
+            <img src="espaco-infantil.jpg" alt="Espaço infantil preparado para atendimento" loading="lazy">
+            <figcaption class="gcap">Espaço infantil</figcaption>
+          </figure>
+        </div>
+      </div>
+      <button type="button" class="gallery-btn gallery-prev" id="galleryPrev" aria-label="Imagem anterior"><svg viewBox="0 0 24 24"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
+      <button type="button" class="gallery-btn gallery-next" id="galleryNext" aria-label="Próxima imagem"><svg viewBox="0 0 24 24"><path d="M8.59 16.59 13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg></button>
+      <div class="gallery-dots" id="galleryDots" role="tablist" aria-label="Navegação da galeria"></div>
     </div>
   </div>
 </section>
@@ -851,6 +881,55 @@ footer{background:var(--ink);color:var(--muted);padding:64px 0 28px;}
     });
   }, { threshold:0.6 });
   counters.forEach(c => countIO.observe(c));
+
+  // Galeria carrossel
+  (function initGalleryCarousel() {
+    const carousel = document.getElementById('galleryCarousel');
+    const track = document.getElementById('galleryTrack');
+    const dotsWrap = document.getElementById('galleryDots');
+    const prevBtn = document.getElementById('galleryPrev');
+    const nextBtn = document.getElementById('galleryNext');
+    if (!carousel || !track || !dotsWrap) return;
+
+    const slides = [...track.querySelectorAll('.gallery-slide')];
+    let index = 0;
+    let touchStartX = 0;
+
+    slides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'gallery-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', `Ir para imagem ${i + 1}`);
+      dot.addEventListener('click', () => goTo(i));
+      dotsWrap.appendChild(dot);
+    });
+
+    const dots = [...dotsWrap.querySelectorAll('.gallery-dot')];
+
+    function goTo(i) {
+      index = (i + slides.length) % slides.length;
+      track.style.transform = `translateX(-${index * 100}%)`;
+      dots.forEach((dot, di) => dot.classList.toggle('active', di === index));
+    }
+
+    prevBtn?.addEventListener('click', () => goTo(index - 1));
+    nextBtn?.addEventListener('click', () => goTo(index + 1));
+
+    carousel.addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft') goTo(index - 1);
+      if (e.key === 'ArrowRight') goTo(index + 1);
+    });
+
+    carousel.addEventListener('touchstart', e => {
+      touchStartX = e.changedTouches[0].clientX;
+    }, { passive: true });
+
+    carousel.addEventListener('touchend', e => {
+      const delta = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(delta) < 40) return;
+      goTo(delta < 0 ? index + 1 : index - 1);
+    }, { passive: true });
+  })();
 
   // FAQ accordion
   document.querySelectorAll('.faq-item').forEach(item => {
