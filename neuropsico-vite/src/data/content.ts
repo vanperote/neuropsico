@@ -86,6 +86,64 @@ export const marqueeItems = [
   '+500 famílias atendidas',
 ]
 
+export const sobre = {
+  label: 'Dra. Andreza Mississipe',
+  title: 'Ciência aplicada com escuta de verdade',
+  lead: 'Cada avaliação parte da mesma pergunta: como essa pessoa aprende melhor? A resposta combina instrumentos validados cientificamente com sensibilidade pela história de cada família.',
+  image: '/assets/andreza.jpg',
+  imageAlt: 'Dra. Andreza Mississipe — Neuropsicopedagoga',
+  timeline: [
+    {
+      year: '2012',
+      title: 'Formação em Psicopedagogia',
+      description: 'Base clínica e escolar em desenvolvimento infantil.',
+    },
+    {
+      year: '2016',
+      title: 'Especialização em Neurociência da Aprendizagem',
+      description: 'Aprofundamento em avaliação neuropsicológica.',
+    },
+    {
+      year: '2019',
+      title: 'Consultoria escolar',
+      description: 'Parceria com instituições de ensino.',
+    },
+    {
+      year: 'Hoje',
+      title: 'Atuação clínica integral',
+      description: 'Avaliação, intervenção e orientação contínuas.',
+    },
+  ],
+}
+
+export const beneficios = {
+  label: 'Benefícios',
+  title: 'O que muda na prática da sua família',
+  subtitle: 'Mais do que um laudo — clareza, direção e alívio no dia a dia.',
+  items: [
+    {
+      icon: 'lightbulb' as const,
+      title: 'Clareza sobre as dificuldades',
+      description: 'Entenda a origem real dos desafios de aprendizagem, com linguagem acessível.',
+    },
+    {
+      icon: 'route' as const,
+      title: 'Plano individualizado',
+      description: 'Caminho prático com estratégias adaptadas ao perfil de cada pessoa.',
+    },
+    {
+      icon: 'home' as const,
+      title: 'Menos conflito em casa',
+      description: 'Rotina mais leve quando família e escola falam a mesma língua.',
+    },
+    {
+      icon: 'school' as const,
+      title: 'Apoio escolar alinhado',
+      description: 'Orientações que conectam consultório, família e equipe pedagógica.',
+    },
+  ],
+}
+
 export const galleryItems = [
   {
     id: 'sala',

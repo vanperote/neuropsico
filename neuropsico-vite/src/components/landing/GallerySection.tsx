@@ -1,4 +1,5 @@
 import { CoverFlow } from '@/components/ui/coverflow'
+import { OptimizedImage } from '@/components/ui/OptimizedImage'
 import { galleryItems } from '@/data/content'
 
 export function GallerySection() {
@@ -27,7 +28,7 @@ export function GallerySection() {
           enableClickToSnap
           enableReflection={false}
           renderImage={({ src, alt, width, height, className, draggable, loading }) => (
-            <img
+            <OptimizedImage
               src={src}
               alt={galleryItems.find((g) => g.image === src)?.alt ?? alt}
               width={width}

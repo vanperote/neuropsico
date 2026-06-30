@@ -9,7 +9,11 @@ import { ContactSection } from '@/components/landing/ContactSection'
 import { CtaFinalSection } from '@/components/landing/CtaFinalSection'
 import { InvestimentoSection } from '@/components/landing/InvestimentoSection'
 import { ProcessoSection } from '@/components/landing/ProcessoSection'
+import { BeneficiosSection } from '@/components/landing/BeneficiosSection'
+import { ScrollProgressBar } from '@/components/landing/ScrollProgressBar'
+import { SobreSection } from '@/components/landing/SobreSection'
 import { JsonLd } from '@/components/seo/JsonLd'
+import { OptimizedImage } from '@/components/ui/OptimizedImage'
 
 function GlowButton({
   href,
@@ -91,6 +95,7 @@ export function LandingPage() {
   const [proofIndex, setProofIndex] = useState(0)
   const [openFaq, setOpenFaq] = useState<number | null>(null)
   const heroRef = useRef<HTMLElement>(null)
+  const meshRef = useRef<HTMLDivElement>(null)
   const parallaxRef = useRef<HTMLDivElement>(null)
   const cursorRef = useRef<HTMLDivElement>(null)
   const lastY = useRef(0)
@@ -105,8 +110,18 @@ export function LandingPage() {
       setHeaderHidden(y > lastY.current && y > 160)
       lastY.current = y
       setStickyVisible(y > (heroRef.current?.offsetHeight ?? 0) * 0.9)
+
+      const hero = heroRef.current
+      const mesh = meshRef.current
+      if (hero && mesh) {
+        const heroHeight = hero.offsetHeight
+        if (y <= heroHeight) {
+          mesh.style.transform = `translate3d(0, ${y * 0.32}px, 0)`
+        }
+      }
     }
     window.addEventListener('scroll', onScroll, { passive: true })
+    onScroll()
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
@@ -192,6 +207,7 @@ export function LandingPage() {
 
   const navLinks = [
     { id: 'sobre', label: 'Sobre' },
+    { id: 'beneficios', label: 'Benefícios' },
     { id: 'resultados', label: 'Resultados' },
     { id: 'servicos', label: 'Serviços' },
     { id: 'processo', label: 'Processo' },
@@ -203,6 +219,7 @@ export function LandingPage() {
   return (
     <div className="site">
       <JsonLd />
+      <ScrollProgressBar />
       <div className="cursor-glow" ref={cursorRef} />
 
       <header id="header" className={[headerScrolled && 'scrolled', headerHidden && 'hide'].filter(Boolean).join(' ')}>
@@ -251,7 +268,7 @@ export function LandingPage() {
       <main>
         <section className="hero dark" id="hero" ref={heroRef}>
           <div className="noise" />
-          <div className="mesh">
+          <div className="mesh" ref={meshRef}>
             <div className="b b1" />
             <div className="b b2" />
             <div className="b b3" />
@@ -299,7 +316,7 @@ export function LandingPage() {
             <div className="hero-visual reveal in" style={{ transitionDelay: '.3s' }} ref={parallaxRef}>
               <div className="glass-card">
                 <div className="glass-photo mask in">
-                  <img src="/assets/andreza.jpg" alt="Dra. Andreza Mississipe — Neuropsicopedagoga" width={380} height={440} />
+                  <OptimizedImage src="/assets/andreza.jpg" alt="Dra. Andreza Mississipe — Neuropsicopedagoga" width={380} height={440} />
                 </div>
               </div>
               <div className="glass-badge gb1">
@@ -326,39 +343,9 @@ export function LandingPage() {
 
         <ResultadosSection />
 
-        <section id="sobre">
-          <div className="container auth-grid">
-            <div className="auth-photo reveal">
-              <div className="mask">
-                <img src="/assets/andreza.jpg" alt="Dra. Andreza Mississipe — Neuropsicopedagoga" width={380} height={440} loading="lazy" />
-              </div>
-            </div>
-            <div className="reveal" style={{ transitionDelay: '.1s' }}>
-              <span className="label">Dra. Andreza Mississipe</span>
-              <h2>Ciência aplicada com escuta de verdade</h2>
-              <p style={{ fontSize: 16, color: 'var(--muted-dark)', marginTop: 16, maxWidth: 520 }}>
-                Cada avaliação parte da mesma pergunta: como essa pessoa aprende melhor? A resposta combina instrumentos
-                validados cientificamente com sensibilidade pela história de cada família.
-              </p>
-              <div className="timeline-mini">
-                {[
-                  ['2012', 'Formação em Psicopedagogia', 'Base clínica e escolar em desenvolvimento infantil.'],
-                  ['2016', 'Especialização em Neurociência da Aprendizagem', 'Aprofundamento em avaliação neuropsicológica.'],
-                  ['2019', 'Consultoria escolar', 'Parceria com instituições de ensino.'],
-                  ['Hoje', 'Atuação clínica integral', 'Avaliação, intervenção e orientação contínuas.'],
-                ].map(([year, title, desc]) => (
-                  <div key={year} className="tm-item">
-                    <span className="tm-year">{year}</span>
-                    <div className="tm-text">
-                      <b>{title}</b>
-                      <span>{desc}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
+        <SobreSection />
+
+        <BeneficiosSection />
 
         <section id="servicos" style={{ background: 'var(--cream)' }}>
           <div className="container">
