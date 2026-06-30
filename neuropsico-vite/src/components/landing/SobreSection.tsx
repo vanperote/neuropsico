@@ -17,10 +17,12 @@ export function SobreSection() {
             />
           </div>
         </div>
-        <div className="reveal" style={{ transitionDelay: '.1s' }}>
-          <span className="label">{sobre.label}</span>
-          <h2>{sobre.title}</h2>
-          <p className="sobre-lead">{sobre.lead}</p>
+        <div className="sobre-copy">
+          <div className="reveal">
+            <span className="label">{sobre.label}</span>
+            <h2>{sobre.title}</h2>
+            <p className="sobre-lead">{sobre.lead}</p>
+          </div>
           <AnimatedTimeline items={sobre.timeline} />
         </div>
       </div>
