@@ -3,7 +3,7 @@ import { galleryItems } from '@/data/content'
 
 export function GallerySection() {
   return (
-    <section className="galeria">
+    <section className="galeria" id="galeria">
       <div className="container">
         <div className="head">
           <span className="label">Galeria</span>

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
-import { cases, faqItems, marqueeItems, proofs, WHATSAPP_URL } from '@/data/content'
+import { cases, contactInfo, faqItems, marqueeItems, proofs, WHATSAPP_URL } from '@/data/content'
 import { useCounters } from '@/hooks/useCounters'
 import { useReveal } from '@/hooks/useReveal'
 import { GallerySection } from '@/components/landing/GallerySection'
@@ -9,6 +9,7 @@ import { ContactSection } from '@/components/landing/ContactSection'
 import { CtaFinalSection } from '@/components/landing/CtaFinalSection'
 import { InvestimentoSection } from '@/components/landing/InvestimentoSection'
 import { ProcessoSection } from '@/components/landing/ProcessoSection'
+import { JsonLd } from '@/components/seo/JsonLd'
 
 function GlowButton({
   href,
@@ -189,8 +190,19 @@ export function LandingPage() {
 
   const proof = proofs[proofIndex % proofs.length]
 
+  const navLinks = [
+    { id: 'sobre', label: 'Sobre' },
+    { id: 'resultados', label: 'Resultados' },
+    { id: 'servicos', label: 'Serviços' },
+    { id: 'processo', label: 'Processo' },
+    { id: 'investimento', label: 'Investimento' },
+    { id: 'contato', label: 'Contato' },
+    { id: 'faq', label: 'FAQ' },
+  ] as const
+
   return (
     <div className="site">
+      <JsonLd />
       <div className="cursor-glow" ref={cursorRef} />
 
       <header id="header" className={[headerScrolled && 'scrolled', headerHidden && 'hide'].filter(Boolean).join(' ')}>
@@ -200,13 +212,9 @@ export function LandingPage() {
               <span /> Caminhos do Desenvolvimento
             </a>
             <div className={`nav-links${navOpen ? ' open' : ''}`}>
-              {['sobre', 'servicos', 'processo', 'cases', 'faq'].map((id) => (
+              {navLinks.map(({ id, label }) => (
                 <a key={id} href={`#${id}`} onClick={() => setNavOpen(false)}>
-                  {id === 'sobre' && 'Sobre'}
-                  {id === 'servicos' && 'Serviços'}
-                  {id === 'processo' && 'Processo'}
-                  {id === 'cases' && 'Cases'}
-                  {id === 'faq' && 'FAQ'}
+                  {label}
                 </a>
               ))}
             </div>
@@ -372,10 +380,15 @@ export function LandingPage() {
                 </div>
               ))}
             </div>
+            <div className="section-cta reveal">
+              <GlowButton href={WHATSAPP_URL} className="btn btn-coral btn-sm" target="_blank" rel="noopener noreferrer">
+                Agendar avaliação
+              </GlowButton>
+            </div>
           </div>
         </section>
 
-        <section style={{ background: '#fff', paddingTop: 0 }}>
+        <section id="publico" style={{ background: '#fff', paddingTop: 0 }}>
           <div className="container">
             <div className="head center">
               <span className="label">Público atendido</span>
@@ -411,7 +424,7 @@ export function LandingPage() {
                 <h3>Ainda com dúvidas sobre o processo?</h3>
                 <p>Fale agora pelo WhatsApp — resposta em até 24h.</p>
               </div>
-              <a href="#cta-final" className="btn btn-dark btn-sm">
+              <a href={WHATSAPP_URL} className="btn btn-dark btn-sm" target="_blank" rel="noopener noreferrer">
                 Falar agora
               </a>
             </div>
@@ -443,6 +456,11 @@ export function LandingPage() {
                   </div>
                 </div>
               ))}
+            </div>
+            <div className="section-cta reveal">
+              <GlowButton href="#cta-final" className="btn btn-coral btn-sm">
+                Quero o mesmo resultado
+              </GlowButton>
             </div>
           </div>
         </section>
@@ -493,26 +511,29 @@ export function LandingPage() {
             <div>
               <h3>Navegação</h3>
               <ul>
-                <li><a href="#sobre">Sobre</a></li>
-                <li><a href="#servicos">Serviços</a></li>
-                <li><a href="#processo">Processo</a></li>
-                <li><a href="#faq">FAQ</a></li>
+                {navLinks.map(({ id, label }) => (
+                  <li key={id}>
+                    <a href={`#${id}`}>{label}</a>
+                  </li>
+                ))}
+                <li><a href="#cases">Cases</a></li>
+                <li><a href="#galeria">Galeria</a></li>
               </ul>
             </div>
             <div>
               <h3>Contato</h3>
               <ul>
-                <li><a href="https://wa.me/5548999990000">WhatsApp</a></li>
-                <li>contato@caminhosdodesenvolvimento.com.br</li>
-                <li><a href="https://instagram.com/caminhosdodesenvolvimento">Instagram</a></li>
+                <li><a href={contactInfo.whatsapp.href} target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+                <li><a href={contactInfo.email.href}>{contactInfo.email.address}</a></li>
+                <li><a href={contactInfo.instagram.href} target="_blank" rel="noopener noreferrer">{contactInfo.instagram.handle}</a></li>
               </ul>
             </div>
             <div>
               <h3>Atendimento</h3>
               <ul>
-                <li>Rua das Acácias, 120 — Sala 304</li>
-                <li>Boa Vista, RR</li>
-                <li>CRP/CBO sob consulta</li>
+                <li>{contactInfo.location.street}</li>
+                <li>{contactInfo.location.city}</li>
+                <li>{contactInfo.hours}</li>
               </ul>
             </div>
           </div>

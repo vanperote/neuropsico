@@ -1,12 +1,16 @@
-export const WHATSAPP_URL =
-  'https://wa.me/5548999990000?text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o.'
+import { siteMeta } from './siteMeta'
+
+const whatsappText = encodeURIComponent(siteMeta.whatsappMessage)
+
+export const WHATSAPP_URL = `https://wa.me/${siteMeta.phoneRaw}?text=${whatsappText}`
 
 export const contactInfo = {
   whatsapp: {
     label: 'WhatsApp',
     tag: 'Canal preferencial',
     description: 'Agende, tire dúvidas ou fale com a equipe em tempo real.',
-    href: 'https://wa.me/5548999990000',
+    href: `https://wa.me/${siteMeta.phoneRaw}`,
+    display: siteMeta.phoneDisplay,
     cta: 'Iniciar conversa',
   },
   instagram: {
@@ -178,7 +182,7 @@ export const pricingPackage = {
   ],
   cta: 'Garantir minha avaliação',
   ctaHref: '#cta-final',
-  note: '* Valores ilustrativos — ajuste conforme a tabela real antes de publicar.',
+  note: 'Valores confirmados na conversa inicial, sem surpresas.',
   highlights: ['Laudo completo', 'Plano personalizado', 'Suporte contínuo'],
 }
 
