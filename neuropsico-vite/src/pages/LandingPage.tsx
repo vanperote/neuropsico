@@ -413,11 +413,11 @@ export function LandingPage() {
                 ['02', 130, 'Avaliação', 'Sessões com instrumentos validados para mapear o perfil de aprendizagem.'],
                 ['03', 150, 'Plano personalizado', 'Devolutiva detalhada e construção de um plano sob medida.'],
                 ['04', 170, 'Acompanhamento', 'Sessões contínuas com revisão periódica junto à família.'],
-              ].map(([num, top, title, desc], i) => (
+              ].map(([num, top, title, desc]) => (
                 <div
                   key={num}
-                  className="stack-card reveal"
-                  style={{ top: `${top}px`, transitionDelay: `${i * 0.05}s` }}
+                  className="stack-card"
+                  style={{ top: `${top}px` }}
                 >
                   <span className="stack-num">{num}</span>
                   <div>
