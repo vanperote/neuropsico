@@ -1,5 +1,4 @@
 import { OptimizedImage } from '@/components/ui/OptimizedImage'
-import { AnimatedTimeline } from '@/components/landing/AnimatedTimeline'
 import { sobre } from '@/data/content'
 
 export function SobreSection() {
@@ -17,13 +16,21 @@ export function SobreSection() {
             />
           </div>
         </div>
-        <div className="sobre-copy">
-          <div className="reveal">
-            <span className="label">{sobre.label}</span>
-            <h2>{sobre.title}</h2>
-            <p className="sobre-lead">{sobre.lead}</p>
+        <div className="reveal" style={{ transitionDelay: '.1s' }}>
+          <span className="label">{sobre.label}</span>
+          <h2>{sobre.title}</h2>
+          <p className="sobre-lead">{sobre.lead}</p>
+          <div className="timeline-mini">
+            {sobre.timeline.map((item) => (
+              <div key={item.year} className="tm-item">
+                <span className="tm-year">{item.year}</span>
+                <div className="tm-text">
+                  <b>{item.title}</b>
+                  <span>{item.description}</span>
+                </div>
+              </div>
+            ))}
           </div>
-          <AnimatedTimeline items={sobre.timeline} />
         </div>
       </div>
     </section>
