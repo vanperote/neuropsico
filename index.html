@@ -766,8 +766,37 @@ footer{background:var(--ink);color:var(--muted);padding:64px 0 28px;}
 
   // Character split animation for hero headline
   const heroChars = document.getElementById('heroChars');
-  const words = heroChars.innerHTML.split(' ');
-  heroChars.innerHTML = words.map(w => `<span style="display:inline-block;white-space:nowrap;">${w.split('').map(c => `<span class="ch">${c}</span>`).join('')}&nbsp;</span>`).join('');
+  function wrapHeroCharacters(parent, nodes) {
+    function processNode(node, target) {
+      if (node.nodeType === Node.TEXT_NODE) {
+        node.textContent.split(/(\s+)/).forEach(part => {
+          if (!part) return;
+          if (/^\s+$/.test(part)) {
+            target.appendChild(document.createTextNode(part));
+            return;
+          }
+          const wordSpan = document.createElement('span');
+          wordSpan.style.cssText = 'display:inline-block;white-space:nowrap;';
+          for (const c of part) {
+            const ch = document.createElement('span');
+            ch.className = 'ch';
+            ch.textContent = c;
+            wordSpan.appendChild(ch);
+          }
+          target.appendChild(wordSpan);
+        });
+      } else if (node.nodeType === Node.ELEMENT_NODE) {
+        const el = document.createElement(node.tagName);
+        for (const { name, value } of node.attributes) el.setAttribute(name, value);
+        [...node.childNodes].forEach(child => processNode(child, el));
+        target.appendChild(el);
+      }
+    }
+    nodes.forEach(node => processNode(node, parent));
+  }
+  const heroNodes = [...heroChars.childNodes];
+  heroChars.textContent = '';
+  wrapHeroCharacters(heroChars, heroNodes);
   let d = 0;
   heroChars.querySelectorAll('.ch').forEach(ch => { ch.style.transitionDelay = (d*14)+'ms'; d++; });
   requestAnimationFrame(()=> setTimeout(()=> heroChars.classList.add('in'), 100));
