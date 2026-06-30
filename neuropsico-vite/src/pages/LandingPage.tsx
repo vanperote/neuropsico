@@ -8,6 +8,7 @@ import { HeroTitle } from '@/components/landing/HeroTitle'
 import { ContactSection } from '@/components/landing/ContactSection'
 import { CtaFinalSection } from '@/components/landing/CtaFinalSection'
 import { InvestimentoSection } from '@/components/landing/InvestimentoSection'
+import { ProcessoSection } from '@/components/landing/ProcessoSection'
 
 function GlowButton({
   href,
@@ -401,34 +402,7 @@ export function LandingPage() {
           </div>
         </section>
 
-        <section className="processo dark" id="processo">
-          <div className="container">
-            <div className="head center">
-              <span className="label">Processo</span>
-              <h2>Quatro etapas, um caminho claro</h2>
-            </div>
-            <div className="stack-wrap">
-              {[
-                ['01', 110, 'Primeiro contato', 'Conversa inicial para entender a queixa e organizar os próximos passos.'],
-                ['02', 130, 'Avaliação', 'Sessões com instrumentos validados para mapear o perfil de aprendizagem.'],
-                ['03', 150, 'Plano personalizado', 'Devolutiva detalhada e construção de um plano sob medida.'],
-                ['04', 170, 'Acompanhamento', 'Sessões contínuas com revisão periódica junto à família.'],
-              ].map(([num, top, title, desc]) => (
-                <div
-                  key={num}
-                  className="stack-card"
-                  style={{ top: `${top}px` }}
-                >
-                  <span className="stack-num">{num}</span>
-                  <div>
-                    <h3>{title}</h3>
-                    <p>{desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <ProcessoSection />
 
         <section style={{ padding: '60px 0', background: 'var(--cream)' }}>
           <div className="container">
