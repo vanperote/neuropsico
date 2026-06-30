@@ -186,7 +186,7 @@ nav{display:flex;align-items:center;justify-content:space-between;}
 .hero-visual{position:relative;}
 .glass-card{background:var(--glass);border:1px solid var(--glass-brd);backdrop-filter:blur(20px);border-radius:26px;padding:8px;position:relative;}
 .glass-photo{aspect-ratio:3/3.5;border-radius:20px;overflow:hidden;position:relative;background:linear-gradient(155deg,var(--ink-3),var(--ink) 120%);}
-.glass-photo svg{position:absolute;inset:0;}
+.glass-photo img,.glass-photo svg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
 .glass-badge{position:absolute;background:rgba(14,33,29,.85);backdrop-filter:blur(10px);border:1px solid var(--glass-brd);border-radius:14px;padding:13px 17px;display:flex;align-items:center;gap:11px;font-size:12.5px;font-weight:600;color:#fff;animation:bob 5.4s ease-in-out infinite;}
 .glass-badge .dot{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
 .gb1{top:-18px;left:-22px;animation-delay:0s;}
@@ -226,7 +226,8 @@ section{position:relative;padding:120px 0;}
 
 /* ===== Autoridade / timeline ===== */
 .auth-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:70px;align-items:center;}
-.auth-photo .mask{aspect-ratio:4/4.6;border-radius:22px;background:linear-gradient(150deg,var(--mint),var(--ink) 130%);}
+.auth-photo .mask{aspect-ratio:4/4.6;border-radius:22px;background:linear-gradient(150deg,var(--mint),var(--ink) 130%);overflow:hidden;}
+.auth-photo .mask img{width:100%;height:100%;object-fit:cover;display:block;}
 .timeline-mini{margin-top:30px;}
 .tm-item{display:flex;gap:18px;padding:16px 0;border-bottom:1px solid rgba(21,48,42,.12);}
 .tm-item:last-child{border-bottom:none;}
@@ -448,14 +449,7 @@ footer{background:var(--ink);color:var(--muted);padding:64px 0 28px;}
     <div class="hero-visual reveal in" style="transition-delay:.3s" id="parallaxTarget">
       <div class="glass-card">
         <div class="glass-photo mask in">
-          <svg viewBox="0 0 380 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustração abstrata representando a especialista, em tons escuros com destaque coral">
-            <title>Ilustração — Caminhos do Desenvolvimento</title>
-            <defs><linearGradient id="gA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1C3D35"/><stop offset="1" stop-color="#0E211D"/></linearGradient></defs>
-            <rect width="380" height="440" fill="url(#gA)"/>
-            <circle cx="190" cy="170" r="72" fill="#FF8C66" opacity=".9"/>
-            <path d="M100 400 Q190 300 280 400 L280 440 L100 440 Z" fill="#8FE3C7" opacity=".85"/>
-            <circle cx="320" cy="60" r="40" fill="#8FE3C7" opacity=".25"/>
-          </svg>
+          <img src="andreza.jpg" alt="Dra. Andreza Mississipe — Neuropsicopedagoga" width="380" height="440">
         </div>
       </div>
       <div class="glass-badge gb1"><div class="dot">🧠</div>Plano individual</div>
@@ -494,17 +488,11 @@ footer{background:var(--ink);color:var(--muted);padding:64px 0 28px;}
   <div class="container auth-grid">
     <div class="auth-photo reveal">
       <div class="mask">
-        <svg viewBox="0 0 380 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustração do espaço de atendimento, em tons de verde menta">
-          <title>Ilustração do consultório</title>
-          <rect width="380" height="440" fill="#8FE3C7"/>
-          <circle cx="190" cy="170" r="70" fill="#15302A"/>
-          <path d="M100 400 Q190 300 280 400 L280 440 L100 440 Z" fill="#15302A"/>
-          <circle cx="60" cy="60" r="36" fill="#FF8C66" opacity=".6"/>
-        </svg>
+        <img src="andreza.jpg" alt="Dra. Andreza Mississipe — Neuropsicopedagoga" width="380" height="440" loading="lazy">
       </div>
     </div>
     <div class="reveal" style="transition-delay:.1s">
-      <span class="label">Sobre a especialista</span>
+      <span class="label">Dra. Andreza Mississipe</span>
       <h2>Ciência aplicada com escuta de verdade</h2>
       <p style="font-size:16px;color:var(--muted-dark);margin-top:16px;max-width:520px;">Cada avaliação parte da mesma pergunta: como essa pessoa aprende melhor? A resposta combina instrumentos validados cientificamente com sensibilidade pela história de cada família.</p>
       <div class="timeline-mini">
