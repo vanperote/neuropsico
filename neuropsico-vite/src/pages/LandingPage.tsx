@@ -3,7 +3,11 @@ import { cases, faqItems, marqueeItems, proofs, WHATSAPP_URL } from '@/data/cont
 import { useCounters } from '@/hooks/useCounters'
 import { useReveal } from '@/hooks/useReveal'
 import { GallerySection } from '@/components/landing/GallerySection'
+import { ResultadosSection } from '@/components/landing/ResultadosSection'
 import { HeroTitle } from '@/components/landing/HeroTitle'
+import { ContactSection } from '@/components/landing/ContactSection'
+import { CtaFinalSection } from '@/components/landing/CtaFinalSection'
+import { InvestimentoSection } from '@/components/landing/InvestimentoSection'
 
 function GlowButton({
   href,
@@ -276,7 +280,7 @@ export function LandingPage() {
                   <span>anos de prática</span>
                 </div>
                 <div className="stat">
-                  <b className="count" data-target="98">
+                  <b className="count" data-target="98" data-suffix="%">
                     0
                   </b>
                   <span>% satisfação</span>
@@ -311,29 +315,7 @@ export function LandingPage() {
           </div>
         </div>
 
-        <section className="resultados dark">
-          <div className="container">
-            <div className="head center">
-              <span className="label">Resultados</span>
-              <h2>Números que sustentam a promessa</h2>
-            </div>
-            <div className="res-grid">
-              {[
-                ['500', 'avaliações concluídas'],
-                ['127', 'avaliações 5 estrelas'],
-                ['12', 'anos de atuação clínica'],
-                ['98', '% de famílias satisfeitas'],
-              ].map(([target, label], i) => (
-                <div key={label} className="res-card reveal" style={{ transitionDelay: `${i * 0.06}s` }}>
-                  <b className="count" data-target={target}>
-                    0
-                  </b>
-                  <span>{label}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <ResultadosSection />
 
         <section id="sobre">
           <div className="container auth-grid">
@@ -491,32 +473,7 @@ export function LandingPage() {
           </div>
         </section>
 
-        <section className="investimento dark">
-          <div className="container">
-            <div className="invest-card reveal">
-              <span className="tag-mini">Pacote completo</span>
-              <div className="invest-old">Valor de mercado: R$ 1.450</div>
-              <div className="invest-new">
-                R$ 990 <span>à vista ou em até 3x</span>
-              </div>
-              <ul className="invest-list">
-                {[
-                  'Anamnese completa com a família',
-                  '4 a 6 sessões de avaliação',
-                  'Devolutiva detalhada por escrito',
-                  'Plano de intervenção individual',
-                  '1ª sessão de orientação familiar inclusa',
-                ].map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-              <GlowButton href="#cta-final" className="btn btn-coral" style={{ width: '100%', justifyContent: 'center' }}>
-                Garantir minha avaliação
-              </GlowButton>
-              <p className="invest-note">* Valores ilustrativos — ajuste conforme a tabela real antes de publicar.</p>
-            </div>
-          </div>
-        </section>
+        <InvestimentoSection />
 
         <section id="faq" style={{ background: 'var(--cream)' }}>
           <div className="container">
@@ -545,57 +502,9 @@ export function LandingPage() {
           </div>
         </section>
 
-        <section className="cta-final dark" id="cta-final">
-          <div className="noise" />
-          <div className="container">
-            <div className="reveal">
-              <h2>Dê o primeiro passo em direção a um aprendizado mais leve</h2>
-              <p>Agende sua avaliação e descubra como a neuropsicopedagogia pode transformar a relação com o aprender.</p>
-              <span className="scarcity">⏳ Agenda deste mês com poucas vagas disponíveis</span>
-              <div>
-                <GlowButton href={WHATSAPP_URL} className="btn btn-coral" target="_blank" rel="noopener">
-                  Agendar minha avaliação
-                </GlowButton>
-              </div>
-            </div>
-          </div>
-        </section>
+        <CtaFinalSection />
 
-        <section className="contato">
-          <div className="container">
-            <div className="head center">
-              <span className="label">Contato</span>
-              <h2>Fale com a gente</h2>
-            </div>
-            <div className="contato-grid">
-              <div className="contato-card reveal">
-                <div className="ic">💬</div>
-                <h3>WhatsApp</h3>
-                <p>Resposta em até 24h, de segunda a sexta.</p>
-                <a href="https://wa.me/5548999990000" className="btn btn-dark btn-sm" style={{ marginTop: 6, alignSelf: 'flex-start' }} target="_blank" rel="noopener">
-                  Conversar agora
-                </a>
-              </div>
-              <div className="contato-card reveal" style={{ transitionDelay: '.06s' }}>
-                <div className="ic">📷</div>
-                <h3>Instagram</h3>
-                <p>Conteúdos sobre aprendizagem e desenvolvimento.</p>
-                <a href="https://instagram.com/caminhosdodesenvolvimento" className="btn btn-dark btn-sm" style={{ marginTop: 6, alignSelf: 'flex-start' }} target="_blank" rel="noopener">
-                  @caminhosdodesenvolvimento
-                </a>
-              </div>
-              <div className="map-block reveal">
-                <a href="https://www.google.com/maps/search/?api=1&query=Rua+das+Acácias+120+Boa+Vista+RR" target="_blank" rel="noopener" className="map-pin">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                    <circle cx="12" cy="10" r="3" />
-                  </svg>
-                  <span style={{ fontSize: 13.5 }}>Rua das Acácias, 120 — Sala 304, Boa Vista/RR</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
+        <ContactSection />
       </main>
 
       <footer>

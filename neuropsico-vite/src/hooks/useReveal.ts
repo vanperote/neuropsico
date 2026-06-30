@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 
 export function useReveal() {
   useEffect(() => {
-    const els = document.querySelectorAll('.site .reveal:not(.in), .site .mask:not(.in)')
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
@@ -12,9 +11,18 @@ export function useReveal() {
           }
         })
       },
-      { threshold: 0.15 },
+      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' },
     )
-    els.forEach((el) => io.observe(el))
+
+    document.querySelectorAll('.site .reveal:not(.in), .site .mask:not(.in)').forEach((el) => {
+      const rect = el.getBoundingClientRect()
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        el.classList.add('in')
+      } else {
+        io.observe(el)
+      }
+    })
+
     return () => io.disconnect()
   }, [])
 }

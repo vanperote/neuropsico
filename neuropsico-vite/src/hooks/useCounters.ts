@@ -9,6 +9,7 @@ export function useCounters() {
           if (!entry.isIntersecting) return
           const el = entry.target as HTMLElement
           const target = parseInt(el.dataset.target ?? '0', 10)
+          const suffix = el.dataset.suffix ?? ''
           let cur = 0
           const step = Math.max(1, Math.round(target / 50))
           const t = setInterval(() => {
@@ -17,7 +18,7 @@ export function useCounters() {
               cur = target
               clearInterval(t)
             }
-            el.textContent = String(cur)
+            el.textContent = `${cur}${suffix}`
           }, 22)
           io.unobserve(el)
         })
