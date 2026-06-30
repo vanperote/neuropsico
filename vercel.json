@@ -1,9 +1,13 @@
 {
+  "buildCommand": "cd neuropsico-vite && npm install && npm run build",
+  "outputDirectory": "neuropsico-vite/dist",
+  "installCommand": "cd neuropsico-vite && npm install",
+  "framework": null,
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
     {
-      "source": "/landing-neuropsicopedagoga-v4-signature",
+      "source": "/((?!assets/|vite.svg).*)",
       "destination": "/index.html"
     }
   ]
