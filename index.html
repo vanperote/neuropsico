@@ -271,11 +271,13 @@ section{position:relative;padding:120px 0;}
 .cases{background:#fff;}
 .cases-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
 .case-card{border-radius:20px;overflow:hidden;background:var(--cream);}
-.case-video{aspect-ratio:4/3;background:linear-gradient(150deg,var(--ink-3),var(--ink));position:relative;display:flex;align-items:center;justify-content:center;}
-.play-btn{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.14);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;transition:transform .3s var(--ease);}
+.case-video{aspect-ratio:4/3;background:linear-gradient(150deg,var(--ink-3),var(--ink));position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.case-video video{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;background:var(--ink);}
+.play-btn{position:relative;z-index:2;width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.14);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;transition:transform .3s var(--ease),opacity .3s var(--ease);cursor:pointer;}
 .case-card:hover .play-btn{transform:scale(1.12);}
+.case-video.playing .play-btn{opacity:0;pointer-events:none;}
 .play-btn svg{width:18px;height:18px;fill:#fff;margin-left:3px;}
-.case-video span{position:absolute;bottom:12px;left:14px;color:rgba(255,255,255,.7);font-size:11.5px;}
+.case-video span{position:absolute;bottom:12px;left:14px;z-index:2;color:rgba(255,255,255,.85);font-size:11.5px;background:rgba(14,33,29,.45);padding:4px 10px;border-radius:999px;backdrop-filter:blur(4px);}
 .case-body{padding:22px 22px 26px;}
 .case-stars{color:var(--coral);font-size:13px;letter-spacing:2px;margin-bottom:10px;}
 .case-body p{font-size:13.5px;color:var(--muted-dark);margin-bottom:14px;}
@@ -600,19 +602,30 @@ footer{background:var(--ink);color:var(--muted);padding:64px 0 28px;}
     </div>
     <div class="cases-grid">
       <div class="case-card reveal">
-        <div class="case-video"><div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><span>Vídeo · 1min</span></div>
+        <div class="case-video">
+          <video src="1109211_1080p_4k_3840x2160.mp4" preload="metadata" playsinline></video>
+          <button type="button" class="play-btn" aria-label="Reproduzir depoimento"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+          <span>Depoimento em vídeo</span>
+        </div>
         <div class="case-body"><div class="case-stars">★★★★★</div><p>"A avaliação trouxe clareza que faltava há anos."</p><div class="case-person"><div class="case-avatar">MF</div><div><b>Mariana F.</b><span>Mãe de paciente</span></div></div></div>
       </div>
       <div class="case-card reveal" style="transition-delay:.06s">
-        <div class="case-video"><div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><span>Vídeo · 50s</span></div>
+        <div class="case-video">
+          <video src="1473262_People_Family_3840x2160.mp4" preload="metadata" playsinline></video>
+          <button type="button" class="play-btn" aria-label="Reproduzir depoimento"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+          <span>Depoimento em vídeo</span>
+        </div>
         <div class="case-body"><div class="case-stars">★★★★★</div><p>"Profissionalismo e acolhimento na mesma medida."</p><div class="case-person"><div class="case-avatar">RT</div><div><b>Rodrigo T.</b><span>Pai de paciente</span></div></div></div>
       </div>
       <div class="case-card reveal" style="transition-delay:.12s">
-        <div class="case-video"><div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div><span>Vídeo · 1min20</span></div>
+        <div class="case-video">
+          <video src="5741629_Coll_wavebreak_People_3840x2160.mp4" preload="metadata" playsinline></video>
+          <button type="button" class="play-btn" aria-label="Reproduzir depoimento"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+          <span>Depoimento em vídeo</span>
+        </div>
         <div class="case-body"><div class="case-stars">★★★★★</div><p>"A consultoria escolar deu ferramentas concretas."</p><div class="case-person"><div class="case-avatar">CL</div><div><b>Carla L.</b><span>Coordenadora pedagógica</span></div></div></div>
       </div>
     </div>
-    <p style="text-align:center;font-size:12.5px;color:var(--muted-dark);margin-top:24px;">* Espaços reservados para depoimentos em vídeo reais — substitua pelos arquivos da clínica.</p>
   </div>
 </section>
 
@@ -763,6 +776,36 @@ footer{background:var(--ink);color:var(--muted);padding:64px 0 28px;}
   const navLinks = document.getElementById('navLinks');
   navToggle.addEventListener('click', () => { const open = navLinks.classList.toggle('open'); navToggle.setAttribute('aria-expanded', open); });
   navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
+
+  // Case videos
+  document.querySelectorAll('.case-video').forEach(wrapper => {
+    const video = wrapper.querySelector('video');
+    const playBtn = wrapper.querySelector('.play-btn');
+    if (!video || !playBtn) return;
+
+    playBtn.addEventListener('click', () => {
+      document.querySelectorAll('.case-video video').forEach(v => {
+        if (v !== video) {
+          v.pause();
+          v.closest('.case-video')?.classList.remove('playing');
+        }
+      });
+      video.play();
+      wrapper.classList.add('playing');
+    });
+
+    video.addEventListener('click', () => {
+      if (video.paused) {
+        playBtn.click();
+      } else {
+        video.pause();
+        wrapper.classList.remove('playing');
+      }
+    });
+
+    video.addEventListener('ended', () => wrapper.classList.remove('playing'));
+    video.addEventListener('pause', () => wrapper.classList.remove('playing'));
+  });
 
   // Character split animation for hero headline
   const heroChars = document.getElementById('heroChars');
