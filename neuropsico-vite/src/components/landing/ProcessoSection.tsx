@@ -39,10 +39,7 @@ export function ProcessoSection() {
               className="stack-item"
               style={{ '--stack-i': index } as CSSProperties}
             >
-              <article
-                className="stack-card"
-                style={{ top: `calc(6.875rem + ${index * 1.25}rem)` }}
-              >
+              <article className="stack-card">
                 <span className="stack-num">{step.num}</span>
                 <div>
                   <h3>{step.title}</h3>

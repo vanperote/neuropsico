@@ -1104,6 +1104,8 @@ html {
 }
 
 .site .stack-wrap {
+  --stack-base-top: clamp(6.875rem, 12vh, 8.5rem);
+  --stack-step: clamp(20px, 2.5vh, 26px);
   display: block;
   max-width: 760px;
   margin: 0 auto;
@@ -1112,15 +1114,20 @@ html {
 .site .stack-item {
   --stack-i: 0;
   position: relative;
-  height: clamp(240px, 44vh, 400px);
+  height: clamp(200px, 34vh, 320px);
+}
+
+.site .stack-item + .stack-item {
+  margin-top: clamp(-80px, -11vh, -52px);
 }
 
 .site .stack-item:last-child {
-  height: clamp(200px, 32vh, 300px);
+  height: clamp(160px, 24vh, 240px);
 }
 
 .site .stack-card {
   position: sticky;
+  top: calc(var(--stack-base-top) + var(--stack-i) * var(--stack-step));
   z-index: calc(var(--stack-i) + 1);
   background: var(--ink-2);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -1129,7 +1136,9 @@ html {
   display: flex;
   gap: 26px;
   align-items: flex-start;
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.32);
+  box-shadow:
+    0 calc(10px + var(--stack-i) * 6px) calc(28px + var(--stack-i) * 10px) rgba(0, 0, 0, 0.34),
+    0 1px 0 rgba(255, 255, 255, 0.06) inset;
 }
 
 .site .stack-num {
@@ -2770,12 +2779,16 @@ html {
     grid-template-columns: 1fr 1fr;
   }
 
+  .site .stack-wrap {
+    --stack-step: clamp(14px, 1.8vh, 18px);
+  }
+
   .site .stack-item {
-    height: clamp(200px, 38vh, 320px);
+    height: clamp(190px, 36vh, 300px);
   }
 
   .site .stack-item:last-child {
-    height: clamp(160px, 26vh, 240px);
+    height: clamp(150px, 24vh, 220px);
   }
 
   .site .stack-card {
